@@ -1,0 +1,19 @@
+{
+    "name": "caseyfw/sprinkler-server",
+    "description": "A backend server for an ESP8266 IoT sprinkler.",
+    "version": "1.0.0",
+    "type": "library",
+    "keywords": [
+        "sprinkler", "iot", "esp8266"
+    ],
+    "license": "MIT",
+    "require": {
+        "silex/silex": "~1.3",
+        "doctrine/dbal": "~2.5"
+    },
+    "autoload": {
+        "psr-0": {
+            "Caseyfw": "src/"
+        }
+    }
+}
