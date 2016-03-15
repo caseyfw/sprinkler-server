@@ -20,12 +20,15 @@ class SprinklerController
         return new JsonResponse($this->sprinklersService->getAll());
     }
 
+    public function get($id)
+    {
+        return new JsonResponse($this->sprinklersService->get($id));
+    }
+
     public function save(Request $request)
     {
-
         $sprinkler = $this->getDataFromRequest($request);
-        return new JsonResponse(array("id" => $this->sprinklersService->save($sprinkler)));
-
+        return new JsonResponse(["id" => $this->sprinklersService->save($sprinkler)]);
     }
 
     public function update($id, Request $request)
@@ -33,20 +36,15 @@ class SprinklerController
         $sprinkler = $this->getDataFromRequest($request);
         $this->sprinklersService->update($id, $sprinkler);
         return new JsonResponse($sprinkler);
-
     }
 
     public function delete($id)
     {
-
         return new JsonResponse($this->sprinklersService->delete($id));
-
     }
 
     public function getDataFromRequest(Request $request)
     {
-        return $sprinkler = array(
-            "sprinkler" => $request->request->get("sprinkler")
-        );
+        return $request->request->all();
     }
 }

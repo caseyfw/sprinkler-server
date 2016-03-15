@@ -16,7 +16,7 @@ class ServicesLoader
     public function bindServicesIntoContainer()
     {
         $this->app['sprinkler.service'] = $this->app->share(function () {
-            return new Services\SprinklerService($this->app["db"]);
+            return new Services\SprinklerService($this->app['db']);
         });
     }
 }

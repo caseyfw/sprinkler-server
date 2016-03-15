@@ -24,13 +24,14 @@ class RoutesLoader
 
     public function bindRoutesToControllers()
     {
-        $api = $this->app["controllers_factory"];
+        $api = $this->app['controllers_factory'];
 
-        $api->get('/sprinkler', "sprinkler.controller:getAll");
-        $api->post('/sprinkler', "sprinkler.controller:save");
-        $api->put('/sprinkler/{id}', "sprinkler.controller:update");
-        $api->delete('/sprinkler/{id}', "sprinkler.controller:delete");
+        $api->get('/sprinklers', 'sprinkler.controller:getAll');
+        $api->get('/sprinkler/{id}', 'sprinkler.controller:get');
+        $api->post('/sprinkler', 'sprinkler.controller:save');
+        $api->put('/sprinkler/{id}', 'sprinkler.controller:update');
+        $api->delete('/sprinkler/{id}', 'sprinkler.controller:delete');
 
-        $this->app->mount($this->app["api.endpoint"].'/'.$this->app["api.version"], $api);
+        $this->app->mount($this->app['api.endpoint'].'/'.$this->app['api.version'], $api);
     }
 }

@@ -10,20 +10,28 @@ class SprinklerService extends BaseService
         return $this->db->fetchAll("SELECT * FROM sprinklers");
     }
 
-    function save($sprinkler)
+    public function get($id)
+    {
+        $sprinkler = $this->db->fetchAssoc(
+            "SELECT * FROM sprinklers WHERE id = ?",
+            [$id]
+        );
+        return $sprinkler;
+    }
+
+    public function save($sprinkler)
     {
         $this->db->insert("sprinklers", $sprinkler);
         return $this->db->lastInsertId();
     }
 
-    function update($id, $sprinkler)
+    public function update($id, $sprinkler)
     {
         return $this->db->update('sprinklers', $sprinkler, ['id' => $id]);
     }
 
-    function delete($id)
+    public function delete($id)
     {
-        return $this->db->delete("sprinklers", array("id" => $id));
+        return $this->db->delete("sprinklers", ["id" => $id]);
     }
-
 }
