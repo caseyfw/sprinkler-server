@@ -19,6 +19,28 @@ class SprinklerService extends BaseService
         return $sprinkler;
     }
 
+    public function getInstruction($id)
+    {
+        $sprinkler = $this->get($id);
+        switch ($sprinkler['state']) {
+            case 'turning_on':
+                $sprinkler['state'] = 'on';
+                $this->update($id, $sprinkler);
+                return 'turn_on';
+
+            case 'turning_off':
+                $sprinkler['state'] = 'off';
+                $this->update($id, $sprinkler);
+                return 'turn_off';
+
+            case 'on':
+            case 'off':
+                return 'stay_' . $sprinkler['state'];
+            default:
+                return 'error';
+        }
+    }
+
     public function save($sprinkler)
     {
         $this->db->insert("sprinklers", $sprinkler);

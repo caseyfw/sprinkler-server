@@ -56,11 +56,11 @@ $app->register(
 
 // Load services.
 $servicesLoader = new ServicesLoader($app);
-$servicesLoader->bindServicesIntoContainer();
+$servicesLoader->bindServices();
 
 // Load routes.
 $routesLoader = new RoutesLoader($app);
-$routesLoader->bindRoutesToControllers();
+$routesLoader->bindRoutes();
 
 $app->error(function (\Exception $e, $code) use ($app) {
     return new JsonResponse([
