@@ -1,9 +1,9 @@
 #!/bin/bash
 
 # Configure timezone
-echo "Australia/Adelaide" > /etc/timezone; dpkg-reconfigure tzdata
+echo "Australia/Adelaide" > /etc/timezone; dpkg-reconfigure --frontend noninteractive tzdata
 
-# Add PHP 7 and Node PPAs
+# Add PHP 7 PPA
 apt-add-repository -y ppa:ondrej/php
 
 # Update package list, do a dist upgrade and remove the unused packages
@@ -35,6 +35,11 @@ APACHE_CONFIG=$(cat <<EOF
 EOF
 )
 echo "${APACHE_CONFIG}" > /etc/apache2/sites-available/000-default.conf
+
+# Change Apache to run as the vagrant user
+sed -i 's/APACHE_RUN_USER=www-data/APACHE_RUN_USER=vagrant/' /etc/apache2/envvars
+sed -i 's/APACHE_RUN_GROUP=www-data/APACHE_RUN_GROUP=vagrant/' /etc/apache2/envvars
+chown -R vagrant:www-data /var/lock/apache2
 
 # Configure XDebug
 HOST=$(ip -4 route show default | grep -Po 'default via \K[\d.]+')
